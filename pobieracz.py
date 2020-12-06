@@ -5,6 +5,9 @@ def pobieracz(edzio, edzio2):
     print("pobieranie zakończone!, plik ma rozmiar: ")
     os.system(f"du -sh {b}")
 a = input("podaj strone z plikiem: ")
-b = input("podaj nazwe lub patch do pobranego pliku: ")
+x = a.split("/")
+b = input("nazwa pliku (domyślna enter): ")
+if b == "":
+    b = x [-1]
+    print(b)
 pobieracz(a, b)
-#tes
