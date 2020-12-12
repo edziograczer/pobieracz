@@ -24,10 +24,14 @@ try:
     if local_filename == "":
         local_filename = x[-1]
     site = urllib.request.urlopen(url)
-    content = int(site.headers['Content-Length'])
-    watek = multiprocessing.Process(target=progressbar)
-    watek.start()
-    urllib.request.urlretrieve(url, local_filename)
+    if site.headers['Content-Length']:
+        content = int(site.headers['Content-Length'])
+        watek = multiprocessing.Process(target=progressbar)
+        watek.start()
+        urllib.request.urlretrieve(url, local_filename)
+    if not site.headers['Content-Length']:
+        urllib.request.urlretrieve(url, local_filename)
+        print("pobierasz pewnie text lub html i nie ma rozmiaru pliku :(")
     #print(site.info())
     size = os.path.getsize(local_filename)
     print("pobieranie zakończone!, plik ma rozmiar: ", size / 1048576 , "mb")
